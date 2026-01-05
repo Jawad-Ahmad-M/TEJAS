@@ -1,0 +1,251 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title %}Messages - TEJAS{% endblock %}
+
+{% block extra_css %}
+<style>
+    .chat-container {
+        background: rgba(255, 255, 255, 0.03);
+        backdrop-filter: blur(20px);
+        border: 1px solid rgba(255, 255, 255, 0.1);
+        border-radius: 20px;
+        overflow: hidden;
+    }
+    .chat-list-item {
+        border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+        padding: 1.5rem;
+        transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+        text-decoration: none !important;
+        display: block;
+        color: inherit;
+        position: relative;
+    }
+    .chat-list-item:last-child { border-bottom: none; }
+    .chat-list-item:hover { 
+        background: rgba(255, 255, 255, 0.06); 
+        transform: translateX(8px);
+    }
+    .chat-list-item::before {
+        content: '';
+        position: absolute;
+        left: 0;
+        top: 0;
+        bottom: 0;
+        width: 3px;
+        background: linear-gradient(to bottom, #3b82f6, #8b5cf6);
+        opacity: 0;
+        transition: opacity 0.3s;
+    }
+    .chat-list-item:hover::before {
+        opacity: 1;
+    }
+    
+    .avatar-circle {
+        width: 56px; height: 56px; border-radius: 16px;
+        background: linear-gradient(135deg, #3b82f6, #8b5cf6);
+        display: flex; align-items: center; justify-content: center;
+        font-weight: 800; color: white;
+        font-size: 1.3rem;
+        box-shadow: 0 8px 16px rgba(0, 0, 0, 0.3);
+        border: 1px solid rgba(255, 255, 255, 0.1);
+    }
+    
+    .section-label {
+        font-size: 0.75rem;
+        font-weight: 800;
+        text-transform: uppercase;
+        letter-spacing: 2px;
+        color: rgba(255, 255, 255, 0.4);
+        margin-bottom: 1.25rem;
+        display: block;
+    }
+    
+    .glass-panel {
+        background: rgba(255, 255, 255, 0.03);
+        border: 1px solid rgba(255, 255, 255, 0.08);
+        border-radius: 16px;
+        transition: all 0.3s;
+    }
+    
+    /* Integrated Search Bar */
+    .search-wrapper {
+        position: relative;
+        margin-bottom: 2rem;
+    }
+    .search-input {
+        width: 100%;
+        padding: 18px 25px 18px 55px;
+        background: rgba(255, 255, 255, 0.05);
+        border: 1.5px solid rgba(255, 255, 255, 0.1);
+        border-radius: 16px;
+        color: white !important;
+        font-size: 1rem;
+        transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+        backdrop-filter: blur(10px);
+    }
+    .search-input:focus {
+        background: rgba(255, 255, 255, 0.08);
+        border-color: #3b82f6;
+        box-shadow: 0 0 0 5px rgba(59, 130, 246, 0.15);
+        outline: none;
+    }
+    .search-icon {
+        position: absolute;
+        left: 22px;
+        top: 50%;
+        transform: translateY(-50%);
+        color: rgba(255, 255, 255, 0.4);
+        font-size: 1.2rem;
+        pointer-events: none;
+    }
+
+    .btn-gradient {
+        background: linear-gradient(135deg, #3b82f6 0%, #8b5cf6 100%);
+        border: none;
+        color: white;
+        transition: all 0.3s;
+        box-shadow: 0 4px 15px rgba(59, 130, 246, 0.3);
+    }
+    .btn-gradient:hover {
+        transform: translateY(-2px);
+        box-shadow: 0 8px 20px rgba(59, 130, 246, 0.4);
+        color: white;
+    }
+
+    /* Autofill fix */
+    .search-input:-webkit-autofill {
+        -webkit-text-fill-color: white !important;
+        -webkit-box-shadow: 0 0 0px 1000px rgba(15, 23, 42, 0) inset;
+        transition: background-color 5000s ease-in-out 0s;
+    }
+</style>
+{% endblock %}
+
+{% block content %}
+<div class="container py-5">
+    <div class="row align-items-center mb-5">
+        <div class="col-lg-8">
+            <h1 class="text-4xl md:text-5xl font-extrabold text-white mb-3" style="letter-spacing: -1px;">Secure Communications</h1>
+            <p class="text-lg text-slate-400 max-w-2xl">Connect and negotiate through our high-security encrypted messaging protocol.</p>
+        </div>
+    </div>
+
+    <!-- Integrated Search Bar -->
+    <div class="row justify-content-center">
+        <div class="col-lg-10">
+            <form action="{% url 'chat:search_users' %}" method="GET" class="search-wrapper">
+                <i class="fas fa-search search-icon"></i>
+                <input type="text" name="q" class="search-input" placeholder="Search users by name or email to start a conversation..." autocomplete="off">
+                <button type="submit" class="btn btn-gradient rounded-xl px-5 py-2 position-absolute top-50 end-0 translate-middle-y me-2 h-75 d-none d-md-block">Search</button>
+            </form>
+        </div>
+    </div>
+
+    <div class="row justify-content-center">
+        <div class="col-lg-10">
+            <div class="chat-container shadow-2xl">
+                
+                {% if pending_requests %}
+                <div class="bg-warning bg-opacity-5 p-4 border-bottom border-warning border-opacity-10">
+                    <span class="section-label text-warning">Incoming Connection Requests</span>
+                    <div class="d-flex flex-column gap-3">
+                        {% for chat in pending_requests %}
+                        <div class="glass-panel p-3 d-flex align-items-center justify-content-between border-warning border-opacity-20">
+                            <div class="d-flex align-items-center gap-3">
+                                <div class="avatar-circle" style="background: linear-gradient(135deg, #f59e0b, #d97706)">
+                                    {{ chat.initiator.username|slice:":1"|upper }}
+                                </div>
+                                <div>
+                                    <h6 class="font-bold text-white mb-0">{{ chat.initiator.username }}</h6>
+                                    <span class="text-xs text-slate-500">Wants to start a conversation</span>
+                                </div>
+                            </div>
+                            <div class="d-flex gap-2">
+                                <form method="POST" action="{% url 'chat:accept_chat' chat.id %}">
+                                    {% csrf_token %}
+                                    <button type="submit" class="btn btn-sm btn-success rounded-pill px-4 font-bold">Accept</button>
+                                </form>
+                                <form method="POST" action="{% url 'chat:reject_chat' chat.id %}">
+                                    {% csrf_token %}
+                                    <button type="submit" class="btn btn-sm btn-outline-danger rounded-pill px-4 font-bold">Decline</button>
+                                </form>
+                            </div>
+                        </div>
+                        {% endfor %}
+                    </div>
+                </div>
+                {% endif %}
+
+                <div class="p-4 border-bottom border-white border-opacity-5">
+                    <span class="section-label">Active Conversations</span>
+                </div>
+
+                <div class="conversations-list">
+                    {% for chat in active_conversations %}
+                    <a href="{% url 'chat:chat_room' chat.id %}" class="chat-list-item">
+                        <div class="d-flex align-items-center justify-content-between">
+                            <div class="d-flex align-items-center gap-3">
+                                <div class="avatar-circle">
+                                    {% for part in chat.participants.all %}{% if part != user %}{{ part.username|slice:":1"|upper }}{% endif %}{% endfor %}
+                                </div>
+                                <div>
+                                    <h6 class="font-bold text-white mb-1">
+                                        {% for part in chat.participants.all %}{% if part != user %}{{ part.username }}{% endif %}{% endfor %}
+                                    </h6>
+                                    <p class="text-slate-400 text-sm mb-0">
+                                        {% if chat.messages.last %}
+                                            {{ chat.messages.last.text|truncatechars:60 }}
+                                        {% else %}
+                                            <span class="italic text-slate-600">No messages exchanged yet.</span>
+                                        {% endif %}
+                                    </p>
+                                </div>
+                            </div>
+                            <div class="text-end">
+                                <span class="text-slate-600 text-xs d-block mb-2">{{ chat.updated_at|timesince }} ago</span>
+                                {% if chat.tender %}
+                                <span class="badge rounded-pill bg-blue-500/10 text-blue-400 border border-blue-500/20 px-3 py-1.5" style="font-size: 0.65rem; letter-spacing: 0.5px;">
+                                    TENDER: {{ chat.tender.title|truncatechars:20 }}
+                                </span>
+                                {% endif %}
+                            </div>
+                        </div>
+                    </a>
+                    {% empty %}
+                    <div class="p-5 text-center">
+                        <div class="opacity-10 mb-4"><i class="fas fa-comments fa-5x"></i></div>
+                        <h5 class="text-slate-500 font-medium">Your inbox is empty</h5>
+                        <p class="text-slate-600 text-sm">Find users to start a secure discussion.</p>
+                    </div>
+                    {% endfor %}
+                </div>
+
+                {% if sent_requests %}
+                <div class="p-4 bg-black/20 border-top border-white/5">
+                    <span class="section-label">Outgoing Requests (Pending)</span>
+                    <div class="row g-3">
+                        {% for chat in sent_requests %}
+                        <div class="col-md-6">
+                            <div class="glass-panel p-3 d-flex align-items-center gap-3 opacity-60">
+                                <div class="avatar-circle" style="background: rgba(255,255,255,0.05); border: 1px solid rgba(255,255,255,0.1);">
+                                    {% for part in chat.participants.all %}{% if part != user %}{{ part.username|slice:":1"|upper }}{% endif %}{% endfor %}
+                                </div>
+                                <div class="flex-grow-1">
+                                    <h6 class="font-bold text-white mb-1" style="font-size: 0.9rem;">
+                                        {% for part in chat.participants.all %}{% if part != user %}{{ part.username }}{% endif %}{% endfor %}
+                                    </h6>
+                                    <span class="text-xs font-bold text-warning uppercase">Awaiting Acceptance</span>
+                                </div>
+                            </div>
+                        </div>
+                        {% endfor %}
+                    </div>
+                </div>
+                {% endif %}
+
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

@@ -1,0 +1,59 @@
+Title
+37093-2023 - Competition
+Authority
+"I.1.
+Name and addresses
+Official name: Hrvatske vode, pravna osoba za upravljanje vodama
+National registration number: 28921383001
+Postal address: Ulica grada Vukovara 220
+Town: Zagreb
+NUTS code: HR Hrvatska
+Postal code: 10000
+Country: Croatia
+Contact person: Krešimir Ložnjak
+E-mail: kresimir.loznjak@voda.hr
+Telephone: +385 16307331
+Internet address(es):
+Main address: www.voda.hr
+I.3.
+Communication
+The procurement documents are available for unrestricted and full direct access, free of charge, at: https://eojn.nn.hr/SPIN/applicatifcurrrefeon/ipn/DocumentManagement/DokumentPodaciFrm.aspx?OznakaDokumenta=2023/S+0F2-0002194
+Additional information can be obtained from the abovementioned address
+Tenders or requests to participate must be submitted electronically via: https://eojn.nn.hr/Oglasnik
+I.4.
+Type of the contracting authority
+Body governed by public law
+I.5.
+Main activity
+Other activity: Vodno gospodarstvo"
+
+Object_Description
+"II.1.
+Scope of the procurement
+
+II.1.1.
+Title
+
+USLUGA ODRŽAVANJA DETALJNIH MELIORACIJSKIH GRAĐEVINA ZA ODVODNJU I NAVODNJAVANJE NA BRANJENOM PODRUČJU BR. 10 PODRUČJE MALOGA SLIVA BANOVINA ZA RAZDOBLJE OD 4 GODINE
+Reference number: OP 2022/368
+II.1.2.
+Main CPV code
+90721800 Natural risks or hazards protection services
+II.1.3.
+Type of contract
+Services
+II.1.4.
+Short description
+asd
+
+CPV
+90721800
+
+Estimated_Value
+20,000,000,000,000,000 EUR
+
+Award_Criteria
+asd
+
+Conditions
+asd

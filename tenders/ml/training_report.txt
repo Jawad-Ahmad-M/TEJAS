@@ -1,0 +1,54 @@
+
+================================================================================
+ANOMALY DETECTION MODELS - TRAINING REPORT
+================================================================================
+
+DATASET:
+- Total tenders: 2,039
+- Feature dimensions: 781
+
+MODELS TRAINED:
+
+1. ISOLATION FOREST
+   - Contamination: 0.05 (5%)
+   - Estimators: 100
+   - Anomalies flagged: 102 (5.0%)
+   - Score range: [0.000, 1.000]
+
+2. LOCAL OUTLIER FACTOR (LOF)
+   - Neighbors: 20
+   - Contamination: 0.05 (5%)
+   - Anomalies flagged: 92 (4.5%)
+   - Score range: [0.000, 1.000]
+
+3. ONE-CLASS SVM
+   - Nu: 0.05 (5%)
+   - Kernel: rbf
+   - Anomalies flagged: 123 (6.0%)
+   - Score range: [0.000, 1.000]
+
+4. AUTOENCODER
+   - Status: Trained
+   - Architecture: 768 -> 256 -> 128 -> 64 -> 128 -> 256 -> 768
+   - Epochs: 50
+   - Score range: [0.000, 1.000] 
+
+5. STATISTICAL OUTLIER DETECTION
+   - Method: Z-score within CPV_Level_2 categories
+   - Extreme outliers (|Z| > 3): 35 (1.7%)
+   - Score range: [nan, nan]
+
+CONSENSUS ANALYSIS:
+- Flagged by 3+ models: 5
+- Flagged by all models: 5
+
+SAVED FILES:
+- models/isolation_forest.pkl
+- models/lof.pkl
+- models/one_class_svm.pkl
+- models/autoencoder.pth 
+- anomaly_scores.csv
+
+================================================================================
+NEXT STEP: Run step4_ensemble.py
+================================================================================

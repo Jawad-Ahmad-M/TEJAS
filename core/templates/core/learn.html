@@ -1,0 +1,705 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>TEJAS - Learn More</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800&display=swap');
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: 'Poppins', sans-serif;
+            background: #0f172a;
+            color: white;
+            overflow-x: hidden;
+        }
+
+        /* Navigation */
+        .navbar-custom {
+            background: rgba(15, 23, 42, 0.95);
+            backdrop-filter: blur(20px);
+            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.3);
+        }
+
+        .navbar-brand {
+            font-size: 1.8rem;
+            font-weight: 800;
+            background: linear-gradient(135deg, #3b82f6 0%, #8b5cf6 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            letter-spacing: 1px;
+        }
+
+        .nav-link {
+            color: rgba(255, 255, 255, 0.8) !important;
+            font-weight: 500;
+            margin: 0 10px;
+            transition: all 0.3s;
+        }
+
+        .nav-link:hover {
+            color: #60a5fa !important;
+        }
+
+        /* Hero Section */
+        .hero-section {
+            padding: 150px 0 100px;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .hero-section::before {
+            content: '';
+            position: absolute;
+            width: 600px;
+            height: 600px;
+            background: radial-gradient(circle, rgba(59, 130, 246, 0.3) 0%, transparent 70%);
+            top: -200px;
+            right: -200px;
+            border-radius: 50%;
+            animation: float 8s ease-in-out infinite;
+        }
+
+        @keyframes float {
+            0%, 100% { transform: translate(0, 0) scale(1); }
+            50% { transform: translate(40px, 40px) scale(1.1); }
+        }
+
+        .hero-title {
+            font-size: 3.5rem;
+            font-weight: 800;
+            margin-bottom: 20px;
+            background: linear-gradient(135deg, #3b82f6 0%, #8b5cf6 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .hero-subtitle {
+            font-size: 1.3rem;
+            color: rgba(255, 255, 255, 0.8);
+            line-height: 1.8;
+            max-width: 800px;
+            margin: 0 auto;
+        }
+
+        /* Content Sections */
+        .content-section {
+            padding: 80px 0;
+            position: relative;
+        }
+
+        .section-title {
+            font-size: 2.5rem;
+            font-weight: 800;
+            margin-bottom: 20px;
+        }
+
+        .section-subtitle {
+            font-size: 1.2rem;
+            color: rgba(255, 255, 255, 0.7);
+            margin-bottom: 50px;
+        }
+
+        .content-card {
+            background: rgba(255, 255, 255, 0.03);
+            backdrop-filter: blur(20px);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            border-radius: 20px;
+            padding: 50px;
+            margin-bottom: 30px;
+            transition: all 0.4s;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .content-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 4px;
+            background: linear-gradient(135deg, #3b82f6 0%, #8b5cf6 100%);
+        }
+
+        .content-card:hover {
+            background: rgba(255, 255, 255, 0.05);
+            transform: translateY(-5px);
+            box-shadow: 0 20px 40px rgba(59, 130, 246, 0.2);
+        }
+
+        .content-card h3 {
+            font-size: 1.8rem;
+            font-weight: 700;
+            margin-bottom: 20px;
+            color: white;
+        }
+
+        .content-card p {
+            color: rgba(255, 255, 255, 0.7);
+            line-height: 1.9;
+            font-size: 1.05rem;
+            margin-bottom: 15px;
+        }
+
+        .content-card ul {
+            list-style: none;
+            padding: 0;
+            margin: 20px 0;
+        }
+
+        .content-card ul li {
+            color: rgba(255, 255, 255, 0.7);
+            padding: 12px 0;
+            padding-left: 35px;
+            position: relative;
+            line-height: 1.8;
+        }
+
+        .content-card ul li::before {
+            content: '✓';
+            position: absolute;
+            left: 0;
+            color: #3b82f6;
+            font-weight: 700;
+            font-size: 1.2rem;
+        }
+
+        /* Feature Grid */
+        .feature-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 30px;
+            margin-top: 40px;
+        }
+
+        .feature-item {
+            background: rgba(255, 255, 255, 0.03);
+            backdrop-filter: blur(20px);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            border-radius: 16px;
+            padding: 35px;
+            transition: all 0.3s;
+        }
+
+        .feature-item:hover {
+            background: rgba(255, 255, 255, 0.05);
+            transform: translateY(-5px);
+            box-shadow: 0 15px 30px rgba(59, 130, 246, 0.2);
+        }
+
+        .feature-icon {
+            width: 70px;
+            height: 70px;
+            background: linear-gradient(135deg, #3b82f6 0%, #8b5cf6 100%);
+            border-radius: 14px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 2rem;
+            margin-bottom: 20px;
+            box-shadow: 0 8px 20px rgba(59, 130, 246, 0.3);
+        }
+
+        .feature-item h4 {
+            font-size: 1.3rem;
+            font-weight: 700;
+            margin-bottom: 12px;
+            color: white;
+        }
+
+        .feature-item p {
+            color: rgba(255, 255, 255, 0.7);
+            line-height: 1.7;
+            margin: 0;
+        }
+
+        /* Benefits Section */
+        .benefits-section {
+            background: rgba(255, 255, 255, 0.02);
+            border-top: 1px solid rgba(255, 255, 255, 0.1);
+            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        .benefit-card {
+            text-align: center;
+            padding: 40px 30px;
+            background: rgba(255, 255, 255, 0.03);
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            border-radius: 16px;
+            height: 100%;
+            transition: all 0.3s;
+        }
+
+        .benefit-card:hover {
+            background: rgba(255, 255, 255, 0.05);
+            transform: translateY(-5px);
+            box-shadow: 0 15px 30px rgba(59, 130, 246, 0.2);
+        }
+
+        .benefit-number {
+            font-size: 3.5rem;
+            font-weight: 800;
+            background: linear-gradient(135deg, #3b82f6 0%, #8b5cf6 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            margin-bottom: 15px;
+        }
+
+        .benefit-title {
+            font-size: 1.2rem;
+            font-weight: 700;
+            margin-bottom: 10px;
+            color: white;
+        }
+
+        .benefit-description {
+            color: rgba(255, 255, 255, 0.7);
+            line-height: 1.7;
+        }
+
+        /* Technology Stack */
+        .tech-badge {
+            background: rgba(255, 255, 255, 0.05);
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            border-radius: 30px;
+            padding: 12px 25px;
+            display: inline-block;
+            margin: 8px;
+            font-weight: 600;
+            font-size: 0.95rem;
+            transition: all 0.3s;
+        }
+
+        .tech-badge:hover {
+            background: rgba(59, 130, 246, 0.2);
+            border-color: rgba(59, 130, 246, 0.5);
+            transform: translateY(-2px);
+        }
+
+        /* CTA Section */
+        .cta-section {
+            padding: 100px 0;
+            text-align: center;
+            background: linear-gradient(135deg, rgba(59, 130, 246, 0.1) 0%, rgba(139, 92, 246, 0.1) 100%);
+        }
+
+        .cta-title {
+            font-size: 2.8rem;
+            font-weight: 800;
+            margin-bottom: 20px;
+        }
+
+        .cta-description {
+            font-size: 1.2rem;
+            color: rgba(255, 255, 255, 0.8);
+            margin-bottom: 40px;
+        }
+
+        .btn-hero {
+            background: linear-gradient(135deg, #3b82f6 0%, #8b5cf6 100%);
+            border: none;
+            padding: 16px 40px;
+            font-size: 1.1rem;
+            font-weight: 600;
+            border-radius: 12px;
+            color: white;
+            transition: all 0.4s;
+            box-shadow: 0 8px 24px rgba(59, 130, 246, 0.4);
+            text-decoration: none;
+            display: inline-block;
+        }
+
+        .btn-hero:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 12px 32px rgba(59, 130, 246, 0.5);
+            color: white;
+        }
+
+        /* Footer */
+        .footer {
+            padding: 60px 0 30px;
+            background: rgba(0, 0, 0, 0.3);
+            border-top: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        .footer-title {
+            font-size: 1.8rem;
+            font-weight: 800;
+            background: linear-gradient(135deg, #3b82f6 0%, #8b5cf6 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            margin-bottom: 20px;
+        }
+
+        .footer-text {
+            color: rgba(255, 255, 255, 0.7);
+            line-height: 1.8;
+        }
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            .hero-title {
+                font-size: 2.5rem;
+            }
+
+            .section-title {
+                font-size: 2rem;
+            }
+
+            .content-card {
+                padding: 30px 25px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Navigation -->
+    <nav class="navbar navbar-expand-lg navbar-dark navbar-custom fixed-top">
+        <div class="container">
+            <a class="navbar-brand" href="index.html">TEJAS</a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <ul class="navbar-nav ms-auto">
+                    <li class="nav-item"><a class="nav-link" href="index.html">Home</a></li>
+                    <li class="nav-item"><a class="nav-link active" href="#">Learn More</a></li>
+                    <li class="nav-item"><a class="nav-link" href="index.html#features">Features</a></li>
+                    <li class="nav-item"><a class="nav-link" href="index.html#contact">Contact</a></li>
+                    <li class="nav-item ms-3">
+                        <a class="btn btn-hero btn-sm" href="login.html" style="padding: 10px 25px;">Login</a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <section class="hero-section">
+        <div class="container text-center">
+            <h1 class="hero-title">Everything You Need to Know About TEJAS</h1>
+            <p class="hero-subtitle">Discover how our advanced AI-powered system revolutionizes tender evaluation and procurement processes with unprecedented accuracy and efficiency.</p>
+        </div>
+    </section>
+
+    <!-- What is TEJAS -->
+    <section class="content-section">
+        <div class="container">
+            <h2 class="section-title text-center">What is TEJAS?</h2>
+            <p class="section-subtitle text-center">A comprehensive tender evaluation and judgment automated system</p>
+            
+            <div class="content-card">
+                <h3>Revolutionizing Tender Evaluation</h3>
+                <p>TEJAS (Tender Evaluation and Judgment Assessment System) is a cutting-edge platform designed to transform how organizations evaluate and process tender documents. Built on advanced artificial intelligence and machine learning technologies, TEJAS automates the traditionally time-consuming and error-prone process of tender evaluation.</p>
+                <p>Our system combines state-of-the-art natural language processing, computer vision, and anomaly detection algorithms to provide comprehensive analysis of tender submissions, ensuring accuracy, compliance, and fairness throughout the evaluation process.</p>
+            </div>
+
+            <div class="row mt-4">
+                <div class="col-md-6">
+                    <div class="content-card">
+                        <h3>Our Mission</h3>
+                        <p>To streamline procurement processes by eliminating manual errors, reducing evaluation time, and ensuring complete transparency and compliance in tender assessments.</p>
+                    </div>
+                </div>
+                <div class="col-md-6">
+                    <div class="content-card">
+                        <h3>Our Vision</h3>
+                        <p>To become the global standard for automated tender evaluation, empowering organizations with intelligent tools for fair, efficient, and accurate procurement decisions.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Core Capabilities -->
+    <section class="content-section">
+        <div class="container">
+            <h2 class="section-title text-center">Core Capabilities</h2>
+            <p class="section-subtitle text-center">Comprehensive features that set TEJAS apart</p>
+            
+            <div class="feature-grid">
+                <div class="feature-item">
+                    <div class="feature-icon">🔍</div>
+                    <h4>Intelligent Document Analysis</h4>
+                    <p>Advanced OCR and NLP extract critical information from any document format, including handwritten submissions.</p>
+                </div>
+                <div class="feature-item">
+                    <div class="feature-icon">⚠️</div>
+                    <h4>Real-Time Anomaly Detection</h4>
+                    <p>Machine learning algorithms identify irregularities, inconsistencies, and potential fraud indicators instantly.</p>
+                </div>
+                <div class="feature-item">
+                    <div class="feature-icon">📋</div>
+                    <h4>Automated Compliance Checking</h4>
+                    <p>Verify submissions against regulatory requirements and procurement policies automatically.</p>
+                </div>
+                <div class="feature-item">
+                    <div class="feature-icon">📊</div>
+                    <h4>Comprehensive Reporting</h4>
+                    <p>Generate detailed evaluation reports with scoring, recommendations, and audit trails.</p>
+                </div>
+                <div class="feature-item">
+                    <div class="feature-icon">🔒</div>
+                    <h4>Enterprise Security</h4>
+                    <p>Bank-level encryption and security protocols protect sensitive tender information.</p>
+                </div>
+                <div class="feature-item">
+                    <div class="feature-icon">⚡</div>
+                    <h4>Scalable Processing</h4>
+                    <p>Process thousands of documents simultaneously without compromising accuracy or speed.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- How It Works -->
+    <section class="content-section benefits-section">
+        <div class="container">
+            <h2 class="section-title text-center">How TEJAS Works</h2>
+            <p class="section-subtitle text-center">A seamless process from upload to evaluation</p>
+            
+            <div class="content-card">
+                <h3>Step 1: Document Upload & Preprocessing</h3>
+                <p>Upload tender documents in any format (PDF, Word, Excel, images). Our system automatically extracts text, tables, and structured data using advanced OCR technology. Documents are categorized and indexed for efficient processing.</p>
+                <ul>
+                    <li>Multi-format support (PDF, DOCX, XLSX, images)</li>
+                    <li>Batch upload capability for multiple documents</li>
+                    <li>Automatic language detection and translation</li>
+                    <li>Secure cloud storage with encryption</li>
+                </ul>
+            </div>
+
+            <div class="content-card">
+                <h3>Step 2: AI-Powered Information Extraction</h3>
+                <p>Advanced NLP algorithms identify and extract key information including pricing, specifications, timelines, qualifications, and compliance statements. The system understands context and relationships between different data points.</p>
+                <ul>
+                    <li>Automated extraction of pricing and cost structures</li>
+                    <li>Technical specification parsing and comparison</li>
+                    <li>Qualification and credential verification</li>
+                    <li>Timeline and milestone identification</li>
+                </ul>
+            </div>
+
+            <div class="content-card">
+                <h3>Step 3: Anomaly Detection & Validation</h3>
+                <p>Machine learning models trained on thousands of tenders analyze submissions for irregularities, inconsistencies, and potential red flags. The system cross-references data points and validates against historical patterns.</p>
+                <ul>
+                    <li>Price anomaly detection (unusually high or low bids)</li>
+                    <li>Document authenticity verification</li>
+                    <li>Compliance gap identification</li>
+                    <li>Risk scoring and fraud indicators</li>
+                </ul>
+            </div>
+
+            <div class="content-card">
+                <h3>Step 4: Evaluation & Reporting</h3>
+                <p>Generate comprehensive evaluation reports with scoring matrices, comparisons, and recommendations. All decisions are backed by data and include complete audit trails for transparency and accountability.</p>
+                <ul>
+                    <li>Automated scoring based on predefined criteria</li>
+                    <li>Side-by-side tender comparisons</li>
+                    <li>Detailed recommendation reports</li>
+                    <li>Complete audit trail documentation</li>
+                </ul>
+            </div>
+        </div>
+    </section>
+
+    <!-- Benefits -->
+    <section class="content-section">
+        <div class="container">
+            <h2 class="section-title text-center">Key Benefits</h2>
+            <p class="section-subtitle text-center">Why organizations choose TEJAS</p>
+            
+            <div class="row g-4">
+                <div class="col-md-4">
+                    <div class="benefit-card">
+                        <div class="benefit-number">90%</div>
+                        <div class="benefit-title">Time Reduction</div>
+                        <p class="benefit-description">Reduce evaluation time from weeks to hours with automated processing</p>
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="benefit-card">
+                        <div class="benefit-number">99%</div>
+                        <div class="benefit-title">Accuracy Rate</div>
+                        <p class="benefit-description">Eliminate human errors with AI-powered precision analysis</p>
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="benefit-card">
+                        <div class="benefit-number">100%</div>
+                        <div class="benefit-title">Compliance</div>
+                        <p class="benefit-description">Ensure full regulatory compliance with automated checks</p>
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="benefit-card">
+                        <div class="benefit-number">70%</div>
+                        <div class="benefit-title">Cost Savings</div>
+                        <p class="benefit-description">Reduce operational costs through process automation</p>
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="benefit-card">
+                        <div class="benefit-number">24/7</div>
+                        <div class="benefit-title">Availability</div>
+                        <p class="benefit-description">Process tenders around the clock without manual intervention</p>
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="benefit-card">
+                        <div class="benefit-number">∞</div>
+                        <div class="benefit-title">Scalability</div>
+                        <p class="benefit-description">Handle unlimited tender volumes without additional resources</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Technology Stack -->
+    <section class="content-section benefits-section">
+        <div class="container">
+            <h2 class="section-title text-center">Powered By Advanced Technology</h2>
+            <p class="section-subtitle text-center">Built on cutting-edge AI and cloud infrastructure</p>
+            
+            <div class="text-center mt-5">
+                <span class="tech-badge">Natural Language Processing</span>
+                <span class="tech-badge">Computer Vision</span>
+                <span class="tech-badge">Machine Learning</span>
+                <span class="tech-badge">Deep Learning</span>
+                <span class="tech-badge">OCR Technology</span>
+                <span class="tech-badge">Cloud Computing</span>
+                <span class="tech-badge">Big Data Analytics</span>
+                <span class="tech-badge">Blockchain</span>
+                <span class="tech-badge">API Integration</span>
+                <span class="tech-badge">Real-time Processing</span>
+                <span class="tech-badge">Advanced Encryption</span>
+                <span class="tech-badge">Distributed Systems</span>
+            </div>
+        </div>
+    </section>
+
+    <!-- Use Cases -->
+    <section class="content-section">
+        <div class="container">
+            <h2 class="section-title text-center">Who Uses TEJAS?</h2>
+            <p class="section-subtitle text-center">Trusted by organizations across industries</p>
+            
+            <div class="row g-4">
+                <div class="col-md-6">
+                    <div class="content-card">
+                        <h3>🏛️ Government Agencies</h3>
+                        <p>Streamline public procurement processes, ensure compliance with regulations, and maintain transparency in tender evaluations for infrastructure, supplies, and services.</p>
+                    </div>
+                </div>
+                <div class="col-md-6">
+                    <div class="content-card">
+                        <h3>🏢 Large Enterprises</h3>
+                        <p>Manage complex procurement workflows across multiple departments and locations with centralized evaluation and reporting capabilities.</p>
+                    </div>
+                </div>
+                <div class="col-md-6">
+                    <div class="content-card">
+                        <h3>🏗️ Construction Industry</h3>
+                        <p>Evaluate project bids efficiently, compare technical specifications, and identify qualified contractors for building and infrastructure projects.</p>
+                    </div>
+                </div>
+                <div class="col-md-6">
+                    <div class="content-card">
+                        <h3>🏥 Healthcare Organizations</h3>
+                        <p>Process medical equipment and pharmaceutical tenders with strict compliance to healthcare regulations and quality standards.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- CTA Section -->
+    <section class="cta-section">
+        <div class="container">
+            <h2 class="cta-title">Ready to Experience TEJAS?</h2>
+            <p class="cta-description">Join hundreds of organizations transforming their tender evaluation process</p>
+            <a href="signup.html" class="btn btn-hero me-3">Get Started Free</a>
+            <a href="index.html#contact" class="btn btn-hero" style="background: rgba(255, 255, 255, 0.1); box-shadow: none;">Contact Sales</a>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-6 mb-4">
+                    <h4 class="footer-title">TEJAS</h4>
+                    <p class="footer-text">Tender Evaluation & Judgement Assessment System</p>
+                    <p class="footer-text mt-4">© 2024 TEJAS. All rights reserved.</p>
+                </div>
+                <div class="col-md-3 mb-4">
+                    <h5 class="text-white mb-3">Quick Links</h5>
+                    <a href="index.html" class="footer-text d-block mb-2" style="text-decoration: none;">Home</a>
+                    <a href="index.html#features" class="footer-text d-block mb-2" style="text-decoration: none;">Features</a>
+                    <a href="login.html" class="footer-text d-block mb-2" style="text-decoration: none;">Login</a>
+                    <a href="signup.html" class="footer-text d-block mb-2" style="text-decoration: none;">Sign Up</a>
+                </div>
+                <div class="col-md-3 mb-4">
+                    <h5 class="text-white mb-3">Contact Us</h5>
+                    <p class="footer-text">Email: info@tejas.com</p>
+                    <p class="footer-text">Phone: +1 (555) 123-4567</p>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    <script>
+        // Intersection Observer for animations
+        const observerOptions = {
+            threshold: 0.1,
+            rootMargin: '0px 0px -50px 0px'
+        };
+
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.style.opacity = '1';
+                    entry.target.style.transform = 'translateY(0)';
+                }
+            });
+        }, observerOptions);
+
+        document.querySelectorAll('.content-card, .feature-item, .benefit-card').forEach(element => {
+            element.style.opacity = '0';
+            element.style.transform = 'translateY(30px)';
+            element.style.transition = 'opacity 0.6s ease, transform 0.6s ease';
+            observer.observe(element);
+        });
+
+        // Smooth scroll for anchor links
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                const target = document.querySelector(this.getAttribute('href'));
+                if (target) {
+                    target.scrollIntoView({ behavior: 'smooth', block: 'start' });
+                }
+            });
+        });
+    </script>
+</body>
+</html>

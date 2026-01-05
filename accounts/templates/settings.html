@@ -1,0 +1,854 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>TEJAS - Settings</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800&display=swap');
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: 'Poppins', sans-serif;
+            background: #0f172a;
+            color: white;
+            overflow-x: hidden;
+            min-height: 100vh;
+        }
+
+        .top-bar {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            z-index: 1000;
+            background: rgba(15, 23, 42, 0.95);
+            backdrop-filter: blur(20px);
+            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+            padding: 20px 0;
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.3);
+        }
+
+        .top-bar-content {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            max-width: 1320px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+
+        .logo {
+            font-size: 1.8rem;
+            font-weight: 800;
+            background: linear-gradient(135deg, #3b82f6 0%, #8b5cf6 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            letter-spacing: 1px;
+            text-decoration: none;
+        }
+
+        .back-button {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            background: rgba(255, 255, 255, 0.05);
+            backdrop-filter: blur(10px);
+            border: 1.5px solid rgba(255, 255, 255, 0.2);
+            padding: 10px 24px;
+            font-size: 0.95rem;
+            font-weight: 600;
+            border-radius: 50px;
+            color: white;
+            transition: all 0.3s ease;
+            text-decoration: none;
+        }
+
+        .back-button:hover {
+            background: rgba(255, 255, 255, 0.1);
+            border-color: #3b82f6;
+            color: #60a5fa;
+            transform: translateY(-2px);
+            box-shadow: 0 6px 20px rgba(59, 130, 246, 0.3);
+        }
+
+        .settings-container {
+            padding: 120px 0 60px;
+            max-width: 900px;
+            margin: 0 auto;
+            padding-left: 20px;
+            padding-right: 20px;
+        }
+
+        .page-title {
+            font-size: 2.5rem;
+            font-weight: 700;
+            margin-bottom: 10px;
+            background: linear-gradient(135deg, #3b82f6 0%, #8b5cf6 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .page-subtitle {
+            font-size: 1rem;
+            color: rgba(255, 255, 255, 0.6);
+            margin-bottom: 40px;
+        }
+
+        .settings-card {
+            background: rgba(255, 255, 255, 0.03);
+            backdrop-filter: blur(20px);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            border-radius: 24px;
+            padding: 35px;
+            margin-bottom: 25px;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .settings-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 3px;
+            background: linear-gradient(135deg, #3b82f6 0%, #8b5cf6 100%);
+        }
+
+        .card-title {
+            font-size: 1.5rem;
+            font-weight: 700;
+            margin-bottom: 8px;
+            color: white;
+        }
+
+        .card-subtitle {
+            font-size: 0.9rem;
+            color: rgba(255, 255, 255, 0.6);
+            margin-bottom: 25px;
+        }
+
+        .form-group {
+            margin-bottom: 20px;
+        }
+
+        .form-label {
+            display: block;
+            font-size: 0.9rem;
+            font-weight: 600;
+            color: rgba(255, 255, 255, 0.8);
+            margin-bottom: 8px;
+        }
+
+        .form-input {
+            width: 100%;
+            padding: 14px 18px;
+            background: rgba(255, 255, 255, 0.05);
+            border: 1.5px solid rgba(255, 255, 255, 0.15);
+            border-radius: 12px;
+<<<<<<< HEAD
+            color: white;
+=======
+            color: white !important;
+>>>>>>> bd1274c (Added Chat and rafactored code)
+            font-size: 0.95rem;
+            transition: all 0.3s;
+            font-family: 'Poppins', sans-serif;
+        }
+
+        .form-input:focus {
+            outline: none;
+            background: rgba(255, 255, 255, 0.08);
+            border-color: #3b82f6;
+            box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.1);
+<<<<<<< HEAD
+=======
+            color: white !important;
+        }
+
+        /* Autofill styles */
+        .form-input:-webkit-autofill,
+        .form-input:-webkit-autofill:hover,
+        .form-input:-webkit-autofill:focus {
+            -webkit-text-fill-color: white !important;
+            -webkit-box-shadow: 0 0 0px 1000px rgba(15, 23, 42, 0) inset;
+            transition: background-color 5000s ease-in-out 0s;
+>>>>>>> bd1274c (Added Chat and rafactored code)
+        }
+
+        .form-input::placeholder {
+            color: rgba(255, 255, 255, 0.4);
+        }
+
+        .form-row {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 20px;
+        }
+
+        .btn-primary {
+            background: linear-gradient(135deg, #3b82f6 0%, #8b5cf6 100%);
+            border: none;
+            padding: 14px 32px;
+            font-size: 1rem;
+            font-weight: 600;
+            border-radius: 12px;
+            color: white;
+            transition: all 0.3s;
+            box-shadow: 0 4px 12px rgba(59, 130, 246, 0.3);
+            cursor: pointer;
+            width: 100%;
+        }
+
+        .btn-primary:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 20px rgba(59, 130, 246, 0.4);
+        }
+
+        .btn-danger {
+            background: linear-gradient(135deg, #ef4444 0%, #dc2626 100%);
+            border: none;
+            padding: 10px 24px;
+            font-size: 0.9rem;
+            font-weight: 600;
+            border-radius: 10px;
+            color: white;
+            transition: all 0.3s;
+            cursor: pointer;
+        }
+
+        .btn-danger:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 4px 16px rgba(239, 68, 68, 0.4);
+        }
+
+        .biometric-item {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 18px;
+            background: rgba(255, 255, 255, 0.05);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            border-radius: 12px;
+            margin-bottom: 15px;
+        }
+
+        .biometric-info {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+        }
+
+        .biometric-icon {
+            font-size: 2rem;
+            width: 50px;
+            height: 50px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background: rgba(59, 130, 246, 0.2);
+            border-radius: 10px;
+        }
+
+        .biometric-details h4 {
+            font-size: 1rem;
+            font-weight: 600;
+            margin-bottom: 3px;
+        }
+
+        .biometric-details p {
+            font-size: 0.85rem;
+            color: rgba(255, 255, 255, 0.6);
+            margin: 0;
+        }
+
+        .status-badge {
+            display: inline-block;
+            padding: 4px 12px;
+            border-radius: 20px;
+            font-size: 0.8rem;
+            font-weight: 600;
+        }
+
+        .status-active {
+            background: rgba(34, 197, 94, 0.2);
+            color: #4ade80;
+        }
+
+        .status-inactive {
+            background: rgba(239, 68, 68, 0.2);
+            color: #f87171;
+        }
+
+        .alert {
+            padding: 15px 20px;
+            border-radius: 12px;
+            margin-bottom: 25px;
+            font-size: 0.9rem;
+        }
+
+        .alert-success {
+            background: rgba(34, 197, 94, 0.15);
+            border: 1px solid rgba(34, 197, 94, 0.3);
+            color: #4ade80;
+        }
+
+        .alert-error {
+            background: rgba(239, 68, 68, 0.15);
+            border: 1px solid rgba(239, 68, 68, 0.3);
+            color: #f87171;
+        }
+
+        .biometric-register {
+            display: flex;
+            gap: 15px;
+            margin-top: 20px;
+        }
+
+        .btn-secondary {
+            background: rgba(255, 255, 255, 0.08);
+            border: 1.5px solid rgba(255, 255, 255, 0.2);
+            padding: 12px 24px;
+            font-size: 0.95rem;
+            font-weight: 600;
+            border-radius: 10px;
+            color: white;
+            transition: all 0.3s;
+            cursor: pointer;
+            flex: 1;
+        }
+
+        .btn-secondary:hover {
+            background: rgba(255, 255, 255, 0.12);
+            border-color: #3b82f6;
+            transform: translateY(-2px);
+        }
+
+        @media (max-width: 768px) {
+            .form-row {
+                grid-template-columns: 1fr;
+            }
+
+            .page-title {
+                font-size: 2rem;
+            }
+
+            .settings-card {
+                padding: 25px;
+            }
+
+            .biometric-item {
+                flex-direction: column;
+                gap: 15px;
+                text-align: center;
+            }
+
+            .biometric-info {
+                flex-direction: column;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Top Bar -->
+    <div class="top-bar">
+        <div class="top-bar-content">
+            <a href="/" class="logo">TEJAS</a>
+            <a href="{% url 'accounts:profile' %}" class="back-button">
+                <span>← Back to Profile</span>
+            </a>
+        </div>
+    </div>
+
+    <!-- Settings Container -->
+    <div class="settings-container">
+        <h1 class="page-title">Account Settings</h1>
+        <p class="page-subtitle">Manage your account information, security, and biometric authentication</p>
+
+        <!-- Messages -->
+        {% if messages %}
+            {% for message in messages %}
+                <div class="alert alert-{{ message.tags }}">
+                    {{ message }}
+                </div>
+            {% endfor %}
+        {% endif %}
+
+        <!-- Profile Information -->
+        <div class="settings-card">
+            <h2 class="card-title">Profile Information</h2>
+            <p class="card-subtitle">Update your personal and company details</p>
+            
+            <form method="POST">
+                {% csrf_token %}
+                <input type="hidden" name="action" value="update_profile">
+                
+                <div class="form-row">
+                    <div class="form-group">
+                        <label class="form-label">First Name</label>
+                        <input type="text" name="first_name" class="form-input" value="{{ user.first_name }}" required>
+                    </div>
+                    <div class="form-group">
+                        <label class="form-label">Last Name</label>
+                        <input type="text" name="last_name" class="form-input" value="{{ user.last_name }}" required>
+                    </div>
+                </div>
+
+                <div class="form-row">
+                    <div class="form-group">
+                        <label class="form-label">Username</label>
+                        <input type="text" name="username" class="form-input" value="{{ user.username }}" required>
+                    </div>
+                    <div class="form-group">
+                        <label class="form-label">Email</label>
+                        <input type="email" name="email" class="form-input" value="{{ user.email }}" required>
+                    </div>
+                </div>
+
+                <div class="form-row">
+                    <div class="form-group">
+                        <label class="form-label">Company Name (Optional)</label>
+                        <input type="text" name="company" class="form-input" value="{{ user.company_name|default:'' }}" placeholder="Your company">
+                    </div>
+                    <div class="form-group">
+                        <label class="form-label">Phone Number (Optional)</label>
+                        <input type="tel" name="phone" class="form-input" value="{{ user.phone|default:'' }}" placeholder="+1 234 567 8900">
+                    </div>
+                </div>
+
+                <button type="submit" class="btn-primary">Save Profile Changes</button>
+            </form>
+        </div>
+
+        <!-- Password Security -->
+        <div class="settings-card">
+            <h2 class="card-title">Password & Security</h2>
+            <p class="card-subtitle">Update your password to keep your account secure</p>
+            
+            <form method="POST">
+                {% csrf_token %}
+                <input type="hidden" name="action" value="update_password">
+                
+                <div class="form-group">
+                    <label class="form-label">Current Password</label>
+                    <input type="password" name="current_password" class="form-input" required placeholder="Enter current password">
+                </div>
+
+                <div class="form-row">
+                    <div class="form-group">
+                        <label class="form-label">New Password</label>
+                        <input type="password" name="new_password" class="form-input" required placeholder="At least 8 characters">
+                    </div>
+                    <div class="form-group">
+                        <label class="form-label">Confirm New Password</label>
+                        <input type="password" name="confirm_password" class="form-input" required placeholder="Re-enter new password">
+                    </div>
+                </div>
+
+                <button type="submit" class="btn-primary">Update Password</button>
+            </form>
+        </div>
+
+        <!-- Biometric Authentication -->
+        <div class="settings-card">
+            <h2 class="card-title">Biometric Authentication</h2>
+            <p class="card-subtitle">Secure your account with face or voice recognition</p>
+
+            <!-- Face Biometric -->
+            {% if face_biometric %}
+            <div class="biometric-item">
+                <div class="biometric-info">
+                    <div class="biometric-icon">👤</div>
+                    <div class="biometric-details">
+                        <h4>Face Recognition</h4>
+                        <p>Registered on {{ face_biometric.created_at|date:"M d, Y" }}</p>
+                    </div>
+                </div>
+                <div>
+                    <span class="status-badge status-active">Active</span>
+                    <form method="POST" action="{% url 'accounts:delete_biometric' face_biometric.id %}" style="display: inline;">
+                        {% csrf_token %}
+                        <button type="submit" class="btn-danger" style="margin-left: 10px;" onclick="return confirm('Are you sure you want to remove face biometric?')">Remove</button>
+                    </form>
+                </div>
+            </div>
+            {% else %}
+            <div class="biometric-item">
+                <div class="biometric-info">
+                    <div class="biometric-icon">👤</div>
+                    <div class="biometric-details">
+                        <h4>Face Recognition</h4>
+                        <p>Not registered</p>
+                    </div>
+                </div>
+                <span class="status-badge status-inactive">Inactive</span>
+            </div>
+            {% endif %}
+
+            <!-- Voice Biometric -->
+            {% if voice_biometric %}
+            <div class="biometric-item">
+                <div class="biometric-info">
+                    <div class="biometric-icon">🎤</div>
+                    <div class="biometric-details">
+                        <h4>Voice Recognition</h4>
+                        <p>Registered on {{ voice_biometric.created_at|date:"M d, Y" }}</p>
+                    </div>
+                </div>
+                <div>
+                    <span class="status-badge status-active">Active</span>
+                    <form method="POST" action="{% url 'accounts:delete_biometric' voice_biometric.id %}" style="display: inline;">
+                        {% csrf_token %}
+                        <button type="submit" class="btn-danger" style="margin-left: 10px;" onclick="return confirm('Are you sure you want to remove voice biometric?')">Remove</button>
+                    </form>
+                </div>
+            </div>
+            {% else %}
+            <div class="biometric-item">
+                <div class="biometric-info">
+                    <div class="biometric-icon">🎤</div>
+                    <div class="biometric-details">
+                        <h4>Voice Recognition</h4>
+                        <p>Not registered</p>
+                    </div>
+                </div>
+                <span class="status-badge status-inactive">Inactive</span>
+            </div>
+            {% endif %}
+
+            <!-- Register Biometrics -->
+            {% if not face_biometric or not voice_biometric %}
+            <div class="biometric-register">
+                {% if not face_biometric %}
+                <div style="flex: 1;">
+                    <button type="button" class="btn-secondary" style="width: 100%;" onclick="openFaceRegistration()">
+                        👤 Register Face
+                    </button>
+                </div>
+                {% endif %}
+
+                {% if not voice_biometric %}
+<<<<<<< HEAD
+                <form method="POST" style="flex: 1;">
+                    {% csrf_token %}
+                    <input type="hidden" name="action" value="register_biometric">
+                    <input type="hidden" name="biometric_type" value="VOICE">
+                    <button type="submit" class="btn-secondary" style="width: 100%;">
+                        🎤 Register Voice
+                    </button>
+                </form>
+=======
+                <div style="flex: 1;">
+                    <button type="button" class="btn-secondary" style="width: 100%;" onclick="openVoiceRegistration()">
+                        🎤 Register Voice
+                    </button>
+                </div>
+>>>>>>> bd1274c (Added Chat and rafactored code)
+                {% endif %}
+            </div>
+            {% endif %}
+        </div>
+    </div>
+
+    <!-- Face Registration Modal -->
+    <div class="modal fade" id="faceRegistrationModal" tabindex="-1" aria-hidden="true" data-bs-backdrop="static">
+        <div class="modal-dialog modal-dialog-centered">
+            <div class="modal-content" style="background: var(--dark-bg); border: 1px solid var(--glass-border); border-radius: 24px; overflow: hidden;">
+                <div class="modal-header" style="border-bottom: 1px solid var(--glass-border); padding: 20px 30px;">
+                    <h5 class="modal-title" style="color: white; font-weight: 700;">Face Registration</h5>
+                    <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal" aria-label="Close" onclick="stopCamera()"></button>
+                </div>
+                <div class="modal-body" style="padding: 30px; text-align: center;">
+                    <div id="camera-container" style="position: relative; width: 100%; aspect-ratio: 4/3; background: #000; border-radius: 16px; overflow: hidden; margin-bottom: 20px;">
+                        <video id="video" width="100%" height="100%" autoplay playsinline style="object-fit: cover;"></video>
+                        <canvas id="canvas" style="display:none;"></canvas>
+                        <div id="scan-overlay" style="position: absolute; inset: 20px; border: 2px solid var(--primary); border-radius: 50%; opacity: 0.5; box-shadow: 0 0 0 100vmax rgba(0,0,0,0.4);"></div>
+                    </div>
+                    <p id="registration-status" style="color: #94a3b8; font-size: 0.9rem; margin-bottom: 0;">Position your face in the circle and click register.</p>
+                </div>
+                <div class="modal-footer" style="border-top: 1px solid var(--glass-border); padding: 20px 30px; justify-content: center; gap: 15px;">
+                    <button type="button" class="btn-secondary" data-bs-dismiss="modal" onclick="stopCamera()" style="margin: 0; flex: 1;">Cancel</button>
+                    <button type="button" class="btn-primary" id="capture-btn" onclick="captureAndRegister()" style="flex: 2;">Register Face</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+<<<<<<< HEAD
+=======
+    <!-- Voice Registration Modal -->
+    <div class="modal fade" id="voiceRegistrationModal" tabindex="-1" aria-hidden="true" data-bs-backdrop="static">
+        <div class="modal-dialog modal-dialog-centered">
+            <div class="modal-content" style="background: #0f172a; border: 1px solid rgba(255, 255, 255, 0.1); border-radius: 24px; overflow: hidden;">
+                <div class="modal-header" style="border-bottom: 1px solid rgba(255, 255, 255, 0.1); padding: 20px 30px;">
+                    <h5 class="modal-title" style="color: white; font-weight: 700;">Voice Registration</h5>
+                    <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal" aria-label="Close" onclick="stopRecording()"></button>
+                </div>
+                <div class="modal-body" style="padding: 30px; text-align: center;">
+                    <div id="recording-status" style="margin-bottom: 20px;">
+                        <span class="badge bg-danger pulse d-none" id="rec-indicator" style="animation: pulse 1.5s infinite;">● RECORDING</span>
+                        <p id="voice-status" style="color: #94a3b8; font-size: 0.9rem; margin-top: 10px;">Say: "My voice is my password, verify me"</p>
+                        <h3 id="voice-timer" style="color: white; font-weight: 700;">00:00</h3>
+                    </div>
+                </div>
+                <div class="modal-footer" style="border-top: 1px solid rgba(255, 255, 255, 0.1); padding: 20px 30px; justify-content: center; gap: 15px;">
+                    <button type="button" class="btn-secondary" data-bs-dismiss="modal" onclick="stopRecording()" style="margin: 0; flex: 1;">Cancel</button>
+                    <button type="button" class="btn-primary" id="record-btn" onclick="startRecording()" style="flex: 2;">Start Recording</button>
+                    <button type="button" class="btn-primary d-none" id="stop-rec-btn" onclick="stopRecording(true)" style="flex: 2;">Stop Recording</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+>>>>>>> bd1274c (Added Chat and rafactored code)
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    <script>
+        let stream = null;
+        const video = document.getElementById('video');
+        const canvas = document.getElementById('canvas');
+        const statusText = document.getElementById('registration-status');
+        const captureBtn = document.getElementById('capture-btn');
+        let faceModal = null;
+<<<<<<< HEAD
+
+        document.addEventListener('DOMContentLoaded', () => {
+            faceModal = new bootstrap.Modal(document.getElementById('faceRegistrationModal'));
+=======
+        let voiceModal = null;
+
+        // Voice recording variables
+        let mediaRecorder = null;
+        let audioChunks = [];
+        let startTime = null;
+        let timerInterval = null;
+
+        document.addEventListener('DOMContentLoaded', () => {
+            faceModal = new bootstrap.Modal(document.getElementById('faceRegistrationModal'));
+            voiceModal = new bootstrap.Modal(document.getElementById('voiceRegistrationModal'));
+>>>>>>> bd1274c (Added Chat and rafactored code)
+        });
+
+        async function openFaceRegistration() {
+            try {
+                stream = await navigator.mediaDevices.getUserMedia({ video: true });
+                video.srcObject = stream;
+                faceModal.show();
+            } catch (err) {
+<<<<<<< HEAD
+                alert('Camera access denied or not available. Please ensure you are on a secure connection (HTTPS).');
+=======
+                alert('Camera access denied or not available.');
+>>>>>>> bd1274c (Added Chat and rafactored code)
+                console.error(err);
+            }
+        }
+
+        function stopCamera() {
+            if (stream) {
+                stream.getTracks().forEach(track => track.stop());
+                stream = null;
+            }
+        }
+
+        async function captureAndRegister() {
+            captureBtn.disabled = true;
+            captureBtn.innerText = 'Processing...';
+            statusText.innerText = 'Analyzing face...';
+
+            const context = canvas.getContext('2d');
+            canvas.width = video.videoWidth;
+            canvas.height = video.videoHeight;
+            context.drawImage(video, 0, 0, canvas.width, canvas.height);
+
+            const imageData = canvas.toDataURL('image/jpeg', 0.82);
+
+            try {
+                const response = await fetch('{% url "accounts:register_face" %}', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                        'X-CSRFToken': '{{ csrf_token }}'
+                    },
+                    body: JSON.stringify({ image: imageData })
+                });
+
+                const data = await response.json();
+
+                if (data.success) {
+                    statusText.className = 'text-success';
+                    statusText.innerText = 'Face registered successfully! Reloading...';
+                    setTimeout(() => window.location.reload(), 2000);
+                } else {
+                    statusText.className = 'text-danger';
+                    statusText.innerText = 'Error: ' + (data.error || 'Registration failed');
+                    captureBtn.disabled = false;
+                    captureBtn.innerText = 'Try Again';
+                }
+            } catch (err) {
+                statusText.className = 'text-danger';
+                statusText.innerText = 'Network error or server unavailable.';
+                captureBtn.disabled = false;
+                captureBtn.innerText = 'Try Again';
+                console.error(err);
+            }
+        }
+<<<<<<< HEAD
+=======
+
+        // Voice Registration JS
+        let isCancellingVoice = false;
+
+        function openVoiceRegistration() {
+            isCancellingVoice = false;
+            voiceModal.show();
+        }
+
+        // WAV Recorder Helper
+        class WavRecorder {
+            constructor() {
+                this.audioContext = null;
+                this.processor = null;
+                this.input = null;
+                this.stream = null;
+                this.recording = false;
+                this.leftChannel = [];
+                this.sampleRate = 16000;
+            }
+            async start() {
+                this.stream = await navigator.mediaDevices.getUserMedia({ audio: true });
+                this.audioContext = new (window.AudioContext || window.webkitAudioContext)({ sampleRate: this.sampleRate });
+                this.input = this.audioContext.createMediaStreamSource(this.stream);
+                this.processor = this.audioContext.createScriptProcessor(4096, 1, 1);
+                this.leftChannel = [];
+                this.processor.onaudioprocess = (e) => {
+                    if (!this.recording) return;
+                    this.leftChannel.push(new Float32Array(e.inputBuffer.getChannelData(0)));
+                };
+                this.input.connect(this.processor);
+                this.processor.connect(this.audioContext.destination);
+                this.recording = true;
+            }
+            stop() {
+                this.recording = false;
+                if (this.stream) this.stream.getTracks().forEach(t => t.stop());
+                if (this.audioContext) this.audioContext.close();
+                return this.exportWAV(this.flatten(this.leftChannel));
+            }
+            flatten(chan) {
+                let len = chan.reduce((a, b) => a + b.length, 0);
+                let res = new Float32Array(len);
+                let off = 0;
+                for (let c of chan) { res.set(c, off); off += c.length; }
+                return res;
+            }
+            exportWAV(chan) {
+                let b = new ArrayBuffer(44 + chan.length * 2);
+                let v = new DataView(b);
+                const s = (o, s) => { for (let i = 0; i < s.length; i++) v.setUint8(o + i, s.charCodeAt(i)); };
+                s(0, 'RIFF'); v.setUint32(4, 36 + chan.length * 2, true); s(8, 'WAVE');
+                s(12, 'fmt '); v.setUint32(16, 16, true); v.setUint16(20, 1, true);
+                v.setUint16(22, 1, true); v.setUint32(24, this.sampleRate, true);
+                v.setUint32(28, this.sampleRate * 2, true); v.setUint16(32, 2, true);
+                v.setUint16(34, 16, true); s(36, 'data'); v.setUint32(40, chan.length * 2, true);
+                for (let i = 0, o = 44; i < chan.length; i++, o += 2) {
+                    let smp = Math.max(-1, Math.min(1, chan[i]));
+                    v.setInt16(o, smp < 0 ? smp * 0x8000 : smp * 0x7FFF, true);
+                }
+                return new Blob([v], { type: 'audio/wav' });
+            }
+        }
+
+        const wavRecorder = new WavRecorder();
+
+        async function startRecording() {
+            try {
+                await wavRecorder.start();
+                startTime = Date.now();
+                timerInterval = setInterval(updateTimer, 100);
+
+                document.getElementById('record-btn').classList.add('d-none');
+                document.getElementById('stop-rec-btn').classList.remove('d-none');
+                document.getElementById('rec-indicator').classList.remove('d-none');
+                document.getElementById('voice-status').innerText = 'Recording... Say your catchphrase clearly.';
+            } catch (err) {
+                alert('Microphone access denied or not available.');
+                console.error(err);
+            }
+        }
+
+        async function stopRecording(submit = false) {
+            isCancellingVoice = !submit;
+            const blob = wavRecorder.stop();
+            clearInterval(timerInterval);
+            document.getElementById('rec-indicator').classList.add('d-none');
+            if (submit) await submitVoice(blob);
+        }
+
+        function updateTimer() {
+            const diff = Date.now() - startTime;
+            const sec = Math.floor(diff / 1000);
+            const ms = Math.floor((diff % 1000) / 10);
+            document.getElementById('voice-timer').innerText = 
+                `${sec.toString().padStart(2, '0')}:${ms.toString().padStart(2, '0')}`;
+        }
+
+        async function submitVoice(audioBlob) {
+            document.getElementById('voice-status').innerText = 'Processing your voice...';
+            document.getElementById('stop-rec-btn').disabled = true;
+            document.getElementById('stop-rec-btn').innerText = 'Analyzing...';
+
+            const reader = new FileReader();
+            reader.readAsDataURL(audioBlob);
+            reader.onloadend = async () => {
+                const base64Audio = reader.result;
+                try {
+                    const response = await fetch('{% url "accounts:register_voice" %}', {
+                        method: 'POST',
+                        headers: {
+                            'Content-Type': 'application/json',
+                            'X-CSRFToken': '{{ csrf_token }}'
+                        },
+                        body: JSON.stringify({ 
+                            user_id: "{{ user.id }}",
+                            audio: base64Audio 
+                        })
+                    });
+
+                    const data = await response.json();
+                    if (data.success) {
+                        document.getElementById('voice-status').className = 'text-success';
+                        document.getElementById('voice-status').innerText = 'Voice print saved! Reloading...';
+                        setTimeout(() => window.location.reload(), 1500);
+                    } else {
+                        document.getElementById('voice-status').className = 'text-danger';
+                        document.getElementById('voice-status').innerText = 'Error: ' + data.error;
+                        resetVoiceUI();
+                    }
+                } catch (err) {
+                    document.getElementById('voice-status').innerText = 'Server error.';
+                    resetVoiceUI();
+                }
+            };
+        }
+
+        function resetVoiceUI() {
+            document.getElementById('record-btn').classList.remove('d-none');
+            document.getElementById('stop-rec-btn').classList.add('d-none');
+            document.getElementById('stop-rec-btn').disabled = false;
+            document.getElementById('stop-rec-btn').innerText = 'Stop Recording';
+        }
+>>>>>>> bd1274c (Added Chat and rafactored code)
+    </script>
+</body>
+</html>

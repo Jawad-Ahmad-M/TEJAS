@@ -1,0 +1,157 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title %}TEJAS - Notifications{% endblock %}
+
+{% block extra_css %}
+<style>
+    .page-title {
+        font-size: 2.8rem;
+        font-weight: 800;
+        margin-bottom: 30px;
+        background: linear-gradient(135deg, #3b82f6 0%, #8b5cf6 100%);
+        -webkit-background-clip: text;
+        -webkit-text-fill-color: transparent;
+        background-clip: text;
+    }
+
+    .notifications-wrapper {
+        max-width: 850px;
+        margin: 0 auto;
+    }
+
+    .notification-card {
+        background: rgba(255, 255, 255, 0.03);
+        backdrop-filter: blur(20px);
+        border: 1px solid rgba(255, 255, 255, 0.1);
+        border-radius: 20px;
+        padding: 28px;
+        margin-bottom: 18px;
+        transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+        position: relative;
+        overflow: hidden;
+    }
+
+    .notification-card:hover {
+        background: rgba(255, 255, 255, 0.06);
+        transform: translateX(8px);
+        border-color: rgba(59, 130, 246, 0.4);
+        box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+    }
+
+    .notification-card.unread {
+        background: rgba(59, 130, 246, 0.05);
+        border-color: rgba(59, 130, 246, 0.2);
+    }
+
+    .notification-card.unread::before {
+        content: '';
+        position: absolute;
+        left: 0;
+        top: 0;
+        bottom: 0;
+        width: 6px;
+        background: linear-gradient(to bottom, #3b82f6, #8b5cf6);
+        box-shadow: 0 0 15px rgba(59, 130, 246, 0.5);
+    }
+
+    .notification-header {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        margin-bottom: 15px;
+    }
+
+    .notification-badge {
+        padding: 6px 14px;
+        border-radius: 12px;
+        font-size: 0.75rem;
+        font-weight: 700;
+        text-transform: uppercase;
+        letter-spacing: 1px;
+    }
+
+    .badge-accepted { background: rgba(34, 197, 94, 0.1); color: #4ade80; border: 1px solid rgba(34, 197, 94, 0.2); }
+    .badge-rejected { background: rgba(239, 68, 68, 0.1); color: #f87171; border: 1px solid rgba(239, 68, 68, 0.2); }
+    .badge-system { background: rgba(59, 130, 246, 0.1); color: #60a5fa; border: 1px solid rgba(59, 130, 246, 0.2); }
+
+    .notification-time {
+        color: rgba(255, 255, 255, 0.4);
+        font-size: 0.85rem;
+        font-weight: 500;
+    }
+
+    .notification-title {
+        font-size: 1.35rem;
+        font-weight: 700;
+        color: white;
+        margin-bottom: 10px;
+        letter-spacing: -0.5px;
+    }
+
+    .notification-message {
+        color: rgba(255, 255, 255, 0.7);
+        font-size: 1.05rem;
+        line-height: 1.6;
+    }
+
+    .empty-state {
+        text-align: center;
+        padding: 120px 30px;
+        background: rgba(255, 255, 255, 0.02);
+        border: 1px dashed rgba(255, 255, 255, 0.1);
+        border-radius: 30px;
+    }
+
+    .empty-icon {
+        font-size: 5rem;
+        margin-bottom: 25px;
+        filter: grayscale(1) opacity(0.5);
+    }
+</style>
+{% endblock %}
+
+{% block content %}
+<div class="container py-5">
+    <div class="notifications-wrapper">
+        <div class="d-flex justify-content-between align-items-end mb-4">
+            <div>
+                <h1 class="page-title mb-1">Your Notifications</h1>
+                <p class="text-slate-400 text-lg">Stay updated on your bid status and platform activity.</p>
+            </div>
+            {% if notifications %}
+            <div class="text-slate-500 mb-3 font-semibold uppercase tracking-widest text-xs">
+                {{ notifications|length }} Alert{{ notifications|length|pluralize }}
+            </div>
+            {% endif %}
+        </div>
+
+        {% if notifications %}
+            <div class="notification-list">
+                {% for notification in notifications %}
+                <div class="notification-card {% if not notification.is_read %}unread{% endif %}">
+                    <div class="notification-header">
+                        {% if notification.notification_type == 'BID_ACCEPTED' %}
+                            <span class="notification-badge badge-accepted"><i class="fas fa-check-circle me-1"></i> Accepted</span>
+                        {% elif notification.notification_type == 'BID_REJECTED' %}
+                            <span class="notification-badge badge-rejected"><i class="fas fa-times-circle me-1"></i> Rejected</span>
+                        {% else %}
+                            <span class="notification-badge badge-system"><i class="fas fa-info-circle me-1"></i> System</span>
+                        {% endif %}
+                        <span class="notification-time"><i class="far fa-clock me-1"></i> {{ notification.created_at|timesince }} ago</span>
+                    </div>
+                    <h3 class="notification-title">{{ notification.title }}</h3>
+                    <p class="notification-message">{{ notification.message }}</p>
+                </div>
+                {% endfor %}
+            </div>
+        {% else %}
+            <div class="empty-state">
+                <div class="empty-icon">🔔</div>
+                <h2 class="text-2xl font-bold mb-3">All Caught Up</h2>
+                <p class="text-slate-400 mb-0">No new notifications at the moment. We'll alert you here when something important happens.</p>
+            </div>
+        {% endif %}
+    </div>
+</div>
+{% endblock %}

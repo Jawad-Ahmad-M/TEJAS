@@ -1,0 +1,299 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>TEJAS - Pro Analytics</title>
+    <!-- Tailwind & Bootstrap -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://cdn.plot.ly/plotly-latest.min.js"></script>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700;800&display=swap');
+
+        :root {
+            --primary: #3b82f6;
+            --secondary: #8b5cf6;
+            --dark-bg: #0f172a;
+            --card-bg: rgba(30, 41, 59, 0.7);
+            --glass-border: rgba(255, 255, 255, 0.08);
+        }
+
+        body {
+            font-family: 'Outfit', sans-serif;
+            background: var(--dark-bg);
+            color: #e2e8f0;
+            min-height: 100vh;
+        }
+
+        .top-bar {
+            background: rgba(15, 23, 42, 0.8);
+            backdrop-filter: blur(12px);
+            border-bottom: 1px solid var(--glass-border);
+            padding: 15px 0;
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+        }
+
+        .top-bar-content {
+            max-width: 1600px;
+            margin: 0 auto;
+            padding: 0 20px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .logo {
+            font-size: 1.5rem;
+            font-weight: 800;
+            background: linear-gradient(135deg, var(--primary), var(--secondary));
+            -webkit-background-clip: text;
+            color: transparent;
+            text-decoration: none;
+        }
+
+        .back-btn {
+            background: rgba(255, 255, 255, 0.1);
+            border: 1px solid var(--glass-border);
+            color: white;
+            padding: 6px 16px;
+            border-radius: 50px;
+            text-decoration: none;
+            font-size: 0.9rem;
+            transition: 0.3s;
+        }
+
+        .back-btn:hover {
+            background: rgba(255, 255, 255, 0.2);
+        }
+
+        .dashboard-container {
+            max-width: 1600px;
+            margin: 30px auto;
+            padding: 0 20px;
+        }
+
+        .grid-layout {
+            display: grid;
+            grid-template-columns: repeat(12, 1fr);
+            gap: 20px;
+        }
+
+        .kpi-card {
+            grid-column: span 3;
+            background: var(--card-bg);
+            border: 1px solid var(--glass-border);
+            border-radius: 16px;
+            padding: 20px;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .kpi-card::before {
+            content: '';
+            position: absolute;
+            height: 3px;
+            top: 0;
+            left: 0;
+            width: 100%;
+            background: linear-gradient(90deg, var(--primary), var(--secondary));
+        }
+
+        .kpi-value {
+            font-size: 2rem;
+            font-weight: 700;
+            color: white;
+        }
+
+        .kpi-label {
+            font-size: 0.8rem;
+            color: #94a3b8;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        .chart-card {
+            background: var(--card-bg);
+            border: 1px solid var(--glass-border);
+            border-radius: 16px;
+            padding: 20px;
+            overflow: hidden;
+            height: 100%;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .chart-title {
+            font-size: 1.1rem;
+            font-weight: 600;
+            margin-bottom: 15px;
+            color: #e2e8f0;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .chart-content {
+            flex: 1;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 250px;
+        }
+
+        .chart-content img {
+            max-height: 100%;
+            max-width: 100%;
+            object-fit: contain;
+        }
+
+        .span-12 {
+            grid-column: span 12;
+        }
+
+        .span-8 {
+            grid-column: span 8;
+        }
+
+        .span-6 {
+            grid-column: span 6;
+        }
+
+        .span-4 {
+            grid-column: span 4;
+        }
+
+        .badge-ai {
+            background: linear-gradient(135deg, #10b981, #059669);
+            padding: 2px 8px;
+            border-radius: 4px;
+            font-size: 0.7rem;
+            color: white;
+            margin-left: auto;
+        }
+
+        @media(max-width: 1200px) {
+            .span-4 {
+                grid-column: span 6;
+            }
+
+            .span-8 {
+                grid-column: span 12;
+            }
+        }
+
+        @media(max-width: 768px) {
+            .kpi-card {
+                grid-column: span 6;
+            }
+
+            .span-6 {
+                grid-column: span 12;
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <div class="top-bar">
+        <div class="top-bar-content">
+            <a href="/" class="logo">TEJAS <span style="font-weight: 300; color: #94a3b8; font-size: 1rem;">/ Pro
+                    Analytics</span></a>
+            <a href="{% url 'accounts:profile' %}" class="back-btn">Back</a>
+        </div>
+    </div>
+
+    <div class="dashboard-container">
+        <!-- KPI Row -->
+        <div class="grid-layout mb-4">
+            <div class="kpi-card">
+                <div class="kpi-label">Total Tenders</div>
+                <div class="kpi-value">{{ kpi_total_tenders }}</div>
+            </div>
+            <div class="kpi-card">
+                <div class="kpi-label">Avg Budget</div>
+                <div class="kpi-value">${{ kpi_avg_budget|floatformat:0 }}</div>
+            </div>
+            <div class="kpi-card">
+                <div class="kpi-label">Total Bids</div>
+                <div class="kpi-value">{{ kpi_total_bids }}</div>
+            </div>
+            <div class="kpi-card">
+                <div class="kpi-label">Total Users</div>
+                <div class="kpi-value">{{ kpi_total_users }}</div>
+            </div>
+        </div>
+
+        <!-- ROW 1: Operational Metrics -->
+        <div class="grid-layout mb-4">
+            <div class="chart-card span-6">
+                <div class="chart-title">📈 Tender Growth</div>
+                <div class="chart-content">
+                    {% if chart_tenders_time %}<img src="data:image/png;base64,{{ chart_tenders_time }}">{% else %}No
+                    Data{% endif %}
+                </div>
+            </div>
+            <div class="chart-card span-6">
+                <div class="chart-title">📊 Bid Dynamics</div>
+                <div class="chart-content">
+                    {% if chart_bids_time %}<img src="data:image/png;base64,{{ chart_bids_time }}">{% else %}No
+                    Data{%endif %}
+                </div>
+            </div>
+        </div>
+
+        <!-- ROW 2: Advanced AI & NLP -->
+        <div class="grid-layout mb-4">
+            <div class="chart-card span-4">
+                <div class="chart-title">🔥 NLP: Hot Topics <span class="badge-ai">NLP</span></div>
+                <div class="chart-content">
+                    {% if chart_nlp_topics %}<img src="data:image/png;base64,{{ chart_nlp_topics }}">{% else %}Not
+                    enough text data{% endif %}
+                </div>
+            </div>
+            <div class="chart-card span-4">
+                <div class="chart-title">🤖 AI Forecast: Budget <span class="badge-ai">ML-Regression</span></div>
+                <div class="chart-content">
+                    {% if chart_ml_forecast %}<img src="data:image/png;base64,{{ chart_ml_forecast }}">{% else %}Need >
+                    2 months data{% endif %}
+                </div>
+            </div>
+            <div class="chart-card span-4">
+                <div class="chart-title">🌡️ Correlation Matrix</div>
+                <div class="chart-content">
+                    {% if chart_heatmap_corr %}<img src="data:image/png;base64,{{ chart_heatmap_corr }}">{% else %}No
+                    Data{% endif %}
+                </div>
+            </div>
+        </div>
+
+        <!-- ROW 3: Network & Clustering -->
+        <div class="grid-layout mb-4">
+            <div class="chart-card span-8">
+                <div class="chart-title">🌐 Ecosystem Network (Interactive) <span class="badge-ai">Graph Theory</span>
+                </div>
+                <div id="plotlyNetwork" class="w-full h-[400px]"></div>
+            </div>
+            <div class="chart-card span-4">
+                <div class="chart-title">🧪 Clustering <span class="badge-ai">K-Means</span></div>
+                <div class="chart-content">
+                    {% if chart_clusters %}<img src="data:image/png;base64,{{ chart_clusters }}">{% else %}No
+                    Data{%endif %}
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        {% if chart_plotly_network %}
+        var netData = {{ chart_plotly_network| safe }};
+        Plotly.newPlot('plotlyNetwork', netData.data, netData.layout, { responsive: true, displayModeBar: false });
+        {% endif %}
+    </script>
+</body>
+
+</html>

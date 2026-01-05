@@ -1,0 +1,20 @@
+Title
+ZZZ-999-ANOMALY
+Authority
+The Void Organization
+Secret Location 42
+
+Object_Description
+Short
+
+CPV
+00000000
+
+Estimated_Value
+999,999,999,999 EUR
+
+Award_Criteria
+None
+
+Conditions
+None
